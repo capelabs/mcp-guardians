@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Server Security Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-shield-alt"></i> MCP Server Security Scanner</h1>
+            <p>Automated security hardening status for MCP (Model Context Protocol) servers</p>
+            <div class="scan-info">
+                <span><i class="fas fa-clock"></i> Last scan: 2025-09-19 02:29:11</span>
+                <span><i class="fas fa-server"></i> Servers scanned: 100</span>
+                <span><i class="fas fa-tag"></i> Topic: mcp-server</span>
+                <span>
+                    <button onclick="showInfoModal()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">
+                        <i class="fas fa-question-circle"></i> Help
+                    </button>
+                    <button onclick="showShareModal()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-left: 0.5rem;">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="Search servers..." />
+            <select id="sortSelect">
+                <option value="stars">Sort by Stars</option>
+                <option value="score">Sort by Security Score</option>
+                <option value="critical">Sort by Critical Issues</option>
+                <option value="high">Sort by High Issues</option>
+            </select>
+            <select id="filterSelect">
+                <option value="all">All Servers</option>
+                <option value="vulnerable">With Vulnerabilities</option>
+                <option value="secure">Secure (Score ≥ 80)</option>
+                <option value="no-security">No Security Policy</option>
+            </select>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <h3>Total Servers</h3>
+                <div class="stat-number">100</div>
+            </div>
+            <div class="stat-card critical">
+                <h3>Critical Issues</h3>
+                <div class="stat-number" id="totalCritical">0</div>
+            </div>
+            <div class="stat-card high">
+                <h3>High Issues</h3>
+                <div class="stat-number" id="totalHigh">0</div>
+            </div>
+            <div class="stat-card success">
+                <h3>Secure Servers</h3>
+                <div class="stat-number" id="secureServers">0</div>
+            </div>
+        </div>
+
+        <div id="serverList" class="server-list">
+            <!-- Server cards will be inserted here by JavaScript -->
+        </div>
+        
+        <div id="pagination" class="pagination">
+            <!-- Pagination controls will be inserted here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Modal for detailed view -->
+    <div id="serverModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody">
+                <!-- Modal content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for info/help -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content info-modal-content">
+            <span class="close-info">&times;</span>
+            <h2><i class="fas fa-info-circle"></i> Security Terms Explanation</h2>
+            <div id="infoModalBody">
+                <!-- Info content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for share -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content share-modal-content">
+            <span class="close-share">&times;</span>
+            <h2><i class="fas fa-share-alt"></i> Share with Friends & Family</h2>
+            <p style="color: #5f6368; margin: 1rem 0;">Help spread awareness about MCP server security!</p>
+            <div class="share-modal-buttons">
+                <button onclick="shareOnX()" class="share-modal-btn x-twitter">
+                    <i class="fab fa-x-twitter"></i> X
+                </button>
+                <button onclick="shareOnFacebook()" class="share-modal-btn facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+                <button onclick="shareOnLinkedIn()" class="share-modal-btn linkedin">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </button>
+                <button onclick="shareOnWhatsApp()" class="share-modal-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button onclick="copyShareLink()" class="share-modal-btn copy-link">
+                    <i class="fas fa-link"></i> Copy Link
+                </button>
+            </div>
+            <div id="copyNotification" class="copy-notification-modal">Link copied to clipboard!</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Generated with MCP Security Scanner | 
+               <a href="https://github.com/yourusername/mcp-security-scanner" target="_blank">
+                   <i class="fab fa-github"></i> GitHub
+               </a> |
+               <a href="https://github.com/topics/mcp-server" target="_blank">
+                   <i class="fas fa-tag"></i> Browse MCP Servers
+               </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
